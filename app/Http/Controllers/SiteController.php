@@ -30,19 +30,29 @@ class SiteController extends Controller
 
     public function renderOutPut()
     {
-
         $menu = $this->getMenu();
-        //dd($menu);
+        //$navigation = view(env('THEME') . '.navigation')->render();
+        $slideItems = $this->getSliders();
+        //dd($slideItems);
         $this->vars = [
             'menus' => $menu,
+            'sliders' => $slideItems,
         ];
+        //dd($this->vars);
         return view($this->template,$this->vars);
     }
 
-    public function getMenu()
-    {
+    public function getMenu(){
 
         $menu = $this->m_rep->get();
         return $menu;
     }
+
+
+    public function getSliders(){
+
+        $sliders = $this->s_rep->get();
+        return $sliders;
+    }
+
 }

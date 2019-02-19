@@ -18,7 +18,3 @@
         @endforeach
     </ul>
 </div>
-
-<ul class="sub-menu">
-    <li><a href="home-ii.html"></a></li>
-</ul>

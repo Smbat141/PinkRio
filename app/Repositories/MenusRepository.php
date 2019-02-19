@@ -7,7 +7,7 @@ use App\Menu;
 class MenusRepository extends Repository{
 
     public function __construct(Menu $menu){
-        $this->menu = $menu;
+        $this->model = $menu;
     }
 
 }

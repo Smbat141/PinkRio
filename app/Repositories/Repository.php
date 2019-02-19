@@ -5,10 +5,10 @@ use Config;
 
 
 abstract class Repository{
-    protected $menu = false;
+    protected $model = false;
 
     public function get(){
-        $builder = $this->menu->select('*');
+        $builder = $this->model->select('*');
 
         return $builder->get();
     }

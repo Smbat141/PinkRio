@@ -4,16 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Menu;
 use App\Repositories\Repository;
+use App\Repositories\SlidersRepository;
 use Illuminate\Http\Request;
 
 class IndexController extends SiteController
 {
 
-    public function __construct(){
+    public function __construct(SlidersRepository $s_rep){
 
         parent::__construct(new \App\Repositories\MenusRepository(new Menu));
 
         $this->bar='right';
+        $this->s_rep=$s_rep;
         $this->template=env('THEME').'.index';
 
 
@@ -21,6 +23,8 @@ class IndexController extends SiteController
 
 
     public function index(){
+        $slideItems = $this->getSliders();
+
         return $this->renderOutPut();
     }
 
