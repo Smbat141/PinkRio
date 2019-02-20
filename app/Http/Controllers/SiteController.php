@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\MenusRepository;
+use App\Repositories\PortfoliosRepository;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -31,16 +32,41 @@ class SiteController extends Controller
     public function renderOutPut()
     {
         $menu = $this->getMenu();
-        //$navigation = view(env('THEME') . '.navigation')->render();
+
         $slideItems = $this->getSliders();
-        //dd($slideItems);
+
+        $portfolios = $this->getPortfolios();
+
+        $articles  = $this->getArticles();
+        foreach ($articles as $article){
+             $article->img = json_decode($article->img);
+        }
+        //dd($articles->img);
+
         $this->vars = [
             'menus' => $menu,
             'sliders' => $slideItems,
+            'portfolios' => $portfolios,
+            'articles' => $articles,
         ];
         //dd($this->vars);
         return view($this->template,$this->vars);
     }
+
+
+    public function getArticles(){
+        $articles = $this->a_rep->get();
+
+        return $articles;
+
+    }
+
+    public function getPortfolios(){
+        $portfolio = $this->p_rep->get();
+
+        return $portfolio;
+    }
+
 
     public function getMenu(){
 
