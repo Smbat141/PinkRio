@@ -4,17 +4,12 @@
     @include(env('THEME').'.navigation')
 @endsection
 
-@section('slider')
-    @include(env('THEME').'.slider')
-@endsection
-
-
 @section('content')
-    @include(env('THEME').'.content')
+    @include(env('THEME').'.articles_content')
 @endsection
 
 @section('bar')
-    @include(env('THEME').'.indexBar')
+    @include(env('THEME').'.articlesRightBar')
 @endsection
 
 @section('footer')

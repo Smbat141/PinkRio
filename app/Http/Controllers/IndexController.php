@@ -26,7 +26,56 @@ class IndexController extends SiteController
     }
 
 
+
+    public function getArticles(){
+        $articles = $this->a_rep->get();
+
+        return $articles;
+
+    }
+
+    public function getPortfolios(){
+        $portfolio = $this->p_rep->get();
+
+        return $portfolio;
+    }
+
+
+    public function getMenu(){
+
+        $menu = $this->m_rep->get();
+        return $menu;
+    }
+
+
+    public function getSliders(){
+
+        $sliders = $this->s_rep->get();
+        return $sliders;
+    }
+
+
     public function index(){
+        $menu = $this->getMenu();
+
+        $slideItems = $this->getSliders();
+
+        $portfolios = $this->getPortfolios();
+
+        $articles  = $this->getArticles();
+        foreach ($articles as $article){
+            $article->img = json_decode($article->img);
+        }
+        //dd($articles->img);
+
+        $this->vars = [
+            'menus' => $menu,
+            'sliders' => $slideItems,
+            'portfolios' => $portfolios,
+            'articles' => $articles,
+            'bar' => $this->bar,
+        ];
+        //dd($this->vars);
         return $this->renderOutPut();
     }
 
