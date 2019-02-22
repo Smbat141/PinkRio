@@ -1,4 +1,4 @@
-
+<div class="sidebar group">
     <div class="widget-first widget recent-posts">
         <h3>From our blog</h3>
         <div class="recent-post group">
@@ -20,3 +20,4 @@
         <div class="text-image" style="text-align:left"><img src="{{asset(env('THEME'))}}/images/callus.gif" alt="Customer support" /></div>
         <p>Proin porttitor dolor eu nibh lacinia at ultrices lorem venenatis. Sed volutpat scelerisque vulputate. </p>
     </div>
+</div>

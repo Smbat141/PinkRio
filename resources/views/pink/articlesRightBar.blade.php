@@ -16,44 +16,28 @@
                 @endif
             @endforeach
         </div>
-
+        @foreach($articles as $article)
+           {{-- {{dd($article->user)}}--}}
+        @endforeach
 
         <div class="widget-last widget recent-comments">
             <h3>Recent Comments</h3>
             <div class="recent-post recent-comments group">
+                @if(!$comments->isEmpty())
+                    @foreach($comments as $comment)
+                        <div class="the-post group">
+                            <div class="avatar">
+                                <img alt="" src="https://www.gravatar.com/avatar/{{$hash}}?d=mm&s=55" class="avatar" />
+                            </div>
+                            <span class="author"><strong><a href="#"></a>{{$comment->user->name}}</strong> in</span>
+                            <a class="title" href="{{route('articles.show',$comment->article->alias)}}">{{$comment->article->title}}</a>
+                            <p class="comment">
+                                {{ $comment->text }} <a class="goto" href="{{route('articles.show',$comment->article->alias)}}">&#187;</a>
+                            </p>
+                        </div>
+                    @endforeach
+                @endif
 
-                <div class="the-post group">
-                    <div class="avatar">
-                        <img alt="" src="images/avatar/unknow55.png" class="avatar" />
-                    </div>
-                    <span class="author"><strong><a href="mailto:no-email@i-am-anonymous.not">eduard</a></strong> in</span>
-                    <a class="title" href="article.html">Nice &amp; Clean. The best for your blog!</a>
-                    <p class="comment">
-                        hi <a class="goto" href="article.html">&#187;</a>
-                    </p>
-                </div>
-
-                <div class="the-post group">
-                    <div class="avatar">
-                        <img alt="" src="images/avatar/nicola55.jpeg" class="avatar" />
-                    </div>
-                    <span class="author"><strong><a href="mailto:nicola@yopmail.com">nicola</a></strong> in</span>
-                    <a class="title" href="article.html">This is the title of the first article. Enjoy it.</a>
-                    <p class="comment">
-                        While i’m the author of the post. My comment template is different,... <a class="goto" href="article.html">&#187;</a>
-                    </p>
-                </div>
-
-                <div class="the-post group">
-                    <div class="avatar">
-                        <img alt="" src="images/avatar/unknow55.png" class="avatar" />
-                    </div>
-                    <span class="author"><strong><a href="mailto:no-email@i-am-anonymous.not">Anonymous</a></strong> in</span>
-                    <a class="title" href="article.html">This is the title of the first article. Enjoy it.</a>
-                    <p class="comment">
-                        <a class="goto" href="article.html">&#187;</a>
-                    </p>
-                </div>
             </div>
         </div>
 

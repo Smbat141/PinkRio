@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+
+
+
     public function article(){
-        return $this->hasMany('App\Article');
+        return $this->belongsTo('App\Article');
     }
 
     public function user(){

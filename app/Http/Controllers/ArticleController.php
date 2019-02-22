@@ -27,16 +27,16 @@ class ArticleController extends SiteController
     }
 
 
-    public function index(){
+    public function index($cat_alias = false){
         $menu = $this->getMenu();
 
         $portfolios = $this->getPortfolios();
 
-        $articles  = $this->getArticles();
+        $articles  = $this->getArticles($cat_alias);
 
         $comments = $this->getComments();
 
-        //dd($comments);
+
         foreach ($articles as $article){
             $article->img = json_decode($article->img);
         }
@@ -44,33 +44,97 @@ class ArticleController extends SiteController
         foreach ($portfolios as $portfolio){
             $portfolio->img = json_decode($portfolio->img);
         }
-        //dd($portfolio->img);
+
+        foreach ($comments as $comment){
+            if($comment->email ? md5($comment->email) : $comment->user->email ){
+                $hash = $comment->email;
+            }
+        }
+
 
         $this->vars = [
             'menus' => $menu,
             'portfolios' => $portfolios,
             'articles' => $articles,
             'bar' => $this->bar,
+            'comments' => $comments,
+            'hash' => $hash,
         ];
+
+
+
         return $this->renderOutPut();
     }
 
 
 
-    public function getComments(){
+
+    public function show($alias = false){
+
+        $articles  = $this->getArticles();
+
+
+        $menu = $this->getMenu();
+
+        $portfolios = $this->getPortfolios();
+
+        $comments = $this->getComments();
+
+
+        foreach ($articles as $article){
+            $article->img = json_decode($article->img);
+        }
+
+        foreach ($portfolios as $portfolio){
+            $portfolio->img = json_decode($portfolio->img);
+        }
+
+        foreach ($comments as $comment){
+            if($comment->email ? md5($comment->email) : $comment->user->email ){
+                $hash = $comment->email;
+            }
+        }
+
+        $this->vars = [
+            'menus' => $menu,
+            'portfolios' => $portfolios,
+            'bar' => $this->bar,
+            'comments' => $comments,
+            'articles' => $articles,
+            'hash' => $hash,
+            'alias' => $alias,
+        ];
+
+        return view(env('THEME').'.article',$this->vars);
+    }
+
+
+        public function getComments(){
 
         $comment = $this->c_rep->get();
+
+        if($comment){
+            $comment->load('article','user');
+        }
+
         return $comment;
 
     }
 
 
-    public function getArticles(){
+    public function getArticles($alias = false){
 
-        $articles = $this->a_rep->get('*',true);
+        $where = false;
+
+        if($alias){
+            $id = Category::select('id')->where('alias',$alias)->first()->id;
+            $where = ['category_id',$id];
+        }
+
+        $articles = $this->a_rep->get('*',true,$where);
 
         if($articles){
-            //$articles->load('user','category','comments');
+            $articles->load('user','category','comment');
         }
         return $articles;
 
@@ -88,4 +152,9 @@ class ArticleController extends SiteController
         $menu = $this->m_rep->get();
         return $menu;
     }
+
+
+
+
+
 }

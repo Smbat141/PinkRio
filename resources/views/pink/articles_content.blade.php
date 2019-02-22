@@ -17,7 +17,7 @@
 
         <div class="meta group">
             <p class="author"><span>by <a href="#" title="Posts by {{$article->user->name}}" rel="author">{{$article->user->name}}</a></span></p>
-            <p class="categories"><span>In: <a href="" title="View all posts in Design" rel="category tag">{{$article->category->alias}}</a></span></p>
+            <p class="categories"><span>In: <a href="{{ route('articlesCat',$article->category->alias) }}" title="View all posts in Design" rel="category tag">{{$article->category->alias}}</a></span></p>
             <p class="comments"><span><a href="article.html#respond" title="Comment on Nice &amp; Clean. The best for your blog!">{{(count($article->comment)) ? (count($article->comment)) : 0}} Comments</a></span></p>
         </div>
         <!-- post content -->
@@ -41,8 +41,6 @@
                     <a href="{{ $articles->url($i) }}" >{{$i}}</a>
                 @endif
             @endfor
-                {{--<a href="{{ $articles->url($articles->currentPage() + 1) }}" >{{$i}}</a>--}}
-
                 <a href="{{ $articles->url($articles->currentPage() + 1) }}">{{ Lang::get('pagination.next')  }}</a>
 
         @endif
