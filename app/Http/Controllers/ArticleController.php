@@ -77,6 +77,7 @@ class ArticleController extends SiteController
 
         $articles  = $this->getArticles();
 
+        $hash = false;
 
         $menu = $this->getMenu();
 
@@ -93,7 +94,8 @@ class ArticleController extends SiteController
         }
 
         foreach ($comments as $comment){
-            if($comment->email ? md5($comment->email) : $comment->user->email ){
+
+            if($comment->email  ? md5($comment->email) : $comment->user->email ){
                 $hash = $comment->email;
             }
         }
