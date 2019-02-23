@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use App\Repositories\CommentsRepository;
 use Illuminate\Http\Request;
 use App\Repositories\PortfoliosRepository;
@@ -71,6 +72,9 @@ class ArticleController extends SiteController
 
     public function show($alias = false){
 
+
+        $id_alias = Article::where('alias',$alias)->first()->id;
+
         $articles  = $this->getArticles();
 
 
@@ -78,8 +82,7 @@ class ArticleController extends SiteController
 
         $portfolios = $this->getPortfolios();
 
-        $comments = $this->getComments();
-
+        $comments = $this->getComments($alias,$id_alias);
 
         foreach ($articles as $article){
             $article->img = json_decode($article->img);
@@ -103,15 +106,23 @@ class ArticleController extends SiteController
             'articles' => $articles,
             'hash' => $hash,
             'alias' => $alias,
+            'id_alias' => $id_alias,
         ];
 
         return view(env('THEME').'.article',$this->vars);
     }
 
 
-        public function getComments(){
+        public function getComments($alias = false,$id_alias = false){
 
-        $comment = $this->c_rep->get();
+
+        $where = false;
+
+        if($alias){
+                $where = ['article_id',$id_alias];
+            }
+
+        $comment = $this->c_rep->get('*',false,$where);
 
         if($comment){
             $comment->load('article','user');
