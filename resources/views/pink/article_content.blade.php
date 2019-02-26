@@ -46,8 +46,24 @@
             <h3 id="comments-title">
                 <span>{{ count($comments) }}</span> comments
             </h3>
+            @if(Auth::check())
+                <div id="respond">
+                    <h3 id="reply-title">Leave a <span>Reply</span> <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display:none;">Cancel reply</a></small></h3>
+                    <form action="{{ route('comment.store') }}" method="post" id="commentform">
+                        {{ csrf_field() }}
+                        <p class="comment-form-comment"><label for="comment">Your comment</label><textarea id="text" name="text" cols="45" rows="8"></textarea></p>
+                        <div class="clear"></div>
+                        <p class="form-submit">
+                            <input name="article_id" type="hidden" id="article_id" value="{{ $id_alias }}" />
+                            <input name="submit" type="submit" id="submit" value="Post Comment" />
+                        </p>
+                    </form>
+                </div>
+            @endif
+
             <ol class="commentlist group">
-                @foreach($comments as $comment)
+                @foreach($comments->reverse() as $index=>$comment)
+
                     <li class="comment">
                     <div class="comment-container">
                         <div class="comment-author vcard">
@@ -79,19 +95,7 @@
         <p><em>No trackback or pingback available for this article.</em></p>
 
         <!-- END TRACKBACK & PINGBACK -->
-        <div id="respond">
-            <h3 id="reply-title">Leave a <span>Reply</span> <small><a rel="nofollow" id="cancel-comment-reply-link" href="#respond" style="display:none;">Cancel reply</a></small></h3>
-            <form action="sendmail.PHP" method="post" id="commentform">
-                <p class="comment-form-author"><label for="author">Name</label> <input id="author" name="author" type="text" value="" size="30" aria-required="true" /></p>
-                <p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email" type="text" value="" size="30" aria-required="true" /></p>
-                <p class="comment-form-url"><label for="url">Website</label><input id="url" name="url" type="text" value="" size="30" /></p>
-                <p class="comment-form-comment"><label for="comment">Your comment</label><textarea id="comment" name="comment" cols="45" rows="8"></textarea></p>
-                <div class="clear"></div>
-                <p class="form-submit">
-                    <input name="submit" type="submit" id="submit" value="Post Comment" />
-                </p>
-            </form>
-        </div>
+
         <!-- #respond -->
     </div>
 

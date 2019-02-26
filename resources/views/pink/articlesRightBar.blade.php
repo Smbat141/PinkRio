@@ -6,7 +6,7 @@
             @foreach($portfolios as  $index=>$portfolio)
                 @if($index <= 2)
                 <div class="hentry-post group">
-                    <div class="thumb-img"><img style="width: 55px ;height: 55px" src="{{asset(env('THEME'))}}/images/articles/{{$portfolio->img->mini}}" alt="001" title="001" /></div>
+                    <div class="thumb-img"><img style="width: 55px ;height: 55px" src="{{asset(env('THEME'))}}/images/projects/{{$portfolio->img->mini}}" alt="001" title="001" /></div>
                     <div class="text">
                         <a href="article.html" title="Section shortcodes &amp; sticky posts!" class="title">{{$portfolio->title}}</a>
                         <p>{{str_limit($portfolio->text,100)}}</p>

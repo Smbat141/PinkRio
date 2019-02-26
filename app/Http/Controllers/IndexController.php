@@ -66,7 +66,10 @@ class IndexController extends SiteController
         foreach ($articles as $article){
             $article->img = json_decode($article->img);
         }
-        //dd($articles->img);
+        foreach ($portfolios as $portfolio){
+            $portfolio->img = json_decode($portfolio->img);
+        }
+        //dd($portfolio->img);
 
         $this->vars = [
             'menus' => $menu,

@@ -12,6 +12,7 @@ use App\User;
 use Illuminate\Support\Facades\Lang;
 use App\Category;
 use App\Comment;
+use Auth;
 
 class ArticleController extends SiteController
 {
