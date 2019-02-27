@@ -8,7 +8,7 @@
                         <ul class="sub-menu">
                            @foreach($menus as $m)
                                @if($m->parent == 3)
-                                        <li><a href="{{ $m->path }}">{{ $m->title }}</a></li>
+                                        <li><a href="{{ route('articlesCat',$m->title) }}">{{ $m->title }}</a></li>
                                 @endif
                             @endforeach
                         </ul>

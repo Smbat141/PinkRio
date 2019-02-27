@@ -24,7 +24,8 @@
             <h3>Recent Comments</h3>
             <div class="recent-post recent-comments group">
                 @if(!$comments->isEmpty())
-                    @foreach($comments as $comment)
+                    @foreach($comments as $index=>$comment)
+                        @if($index < 3)
                         <div class="the-post group">
                             <div class="avatar">
                                 <img alt="" src="https://www.gravatar.com/avatar/{{$hash}}?d=mm&s=55" class="avatar" />
@@ -35,6 +36,7 @@
                                 {{ $comment->text }} <a class="goto" href="{{route('articles.show',$comment->article->alias)}}">&#187;</a>
                             </p>
                         </div>
+                        @endif
                     @endforeach
                 @endif
 

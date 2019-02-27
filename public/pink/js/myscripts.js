@@ -17,6 +17,12 @@ jQuery(document).ready(function ($) {
                             type:'POST',
                             dataType:'JSON',
                             success:function (html) {
+
+                                        if(html.error){
+                                            $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>'+html.error.join('<br>'));
+                                            $('.wrap_result').delay(2000).fadeOut(500);
+                                        }
+
                                         if(html.success){
                                             console.log('done');
                                             $('.wrap_result').append('</br><strong>Saved</strong>')
@@ -31,7 +37,8 @@ jQuery(document).ready(function ($) {
 
                             },
                             error:function () {
-                                console.log('error');
+                                $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>');
+                                $('.wrap_result').delay(2000).fadeOut(500);
 
                             }
                         });

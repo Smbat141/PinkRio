@@ -38,6 +38,8 @@ class CommentController extends SiteController
      */
     public function store(CommentRequest $request)
     {
+
+
         $data = $request->except('_token');
 
         $user = Auth::user();
@@ -49,7 +51,6 @@ class CommentController extends SiteController
 
         $comment->fill($data);
         $comment->save();
-
 
 
         $data['id'] = $comment->id;

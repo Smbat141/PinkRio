@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Home</title>
+    <title>{{$title}}</title>
 
     <!-- [favicon] begin -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset(env('THEME'))}}/images/favicon.ico" />
@@ -82,7 +82,7 @@
 <!-- END HEAD -->
 
 <!-- START BODY -->
-<body class="no_js responsive {{ Route::currentRouteName() == 'home' ? 'page-template-home-php' : ''}} stretched">
+<body class="no_js responsive {{ (Route::currentRouteName() == 'home') || (Route::currentRouteName() == 'portfolios.index') || (Route::currentRouteName() == 'portfolios.show') ? 'page-template-home-php' : ''}} stretched">
 
 <!-- START BG SHADOW -->
 <div class="bg-shadow">
@@ -125,6 +125,16 @@
             @yield('slider')
         <div class="wrap_result"></div>
         <!-- START PRIMARY -->
+        @if(Route::currentRouteName() == 'portfolios.index')
+        <!-- START PAGE META -->
+        <div id="page-meta">
+            <div class="inner group">
+                <h3>Welcome to my portfolio page</h3>
+                <h4>... i hope you enjoy my works</h4>
+            </div>
+        </div>
+        <!-- END PAGE META -->
+        @endif
         <div id="primary" class="sidebar-{{isset($bar) ? $bar : 'no'}}">
             <div class="inner group">
                 <!-- START CONTENT -->

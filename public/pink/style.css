@@ -862,3 +862,6 @@ form input[type="text"], form textarea { border: 1px solid #CFCFCF; -webkit-tran
     display: none;
     z-index: 5005;
 }
+.new_comment{
+    border:2px solid #0bbba4;
+}

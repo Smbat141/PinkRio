@@ -30,6 +30,9 @@ class ArticleController extends SiteController
 
 
     public function index($cat_alias = false){
+
+       $title = $this->title = 'Articles';
+
         $menu = $this->getMenu();
 
         $portfolios = $this->getPortfolios();
@@ -61,6 +64,7 @@ class ArticleController extends SiteController
             'bar' => $this->bar,
             'comments' => $comments,
             'hash' => $hash,
+            'title' => $title,
         ];
 
 
@@ -73,6 +77,7 @@ class ArticleController extends SiteController
 
     public function show($alias = false){
 
+        $title = $this->title = 'Articles';
 
         $id_alias = Article::where('alias',$alias)->first()->id;
 
@@ -107,6 +112,7 @@ class ArticleController extends SiteController
             'bar' => $this->bar,
             'comments' => $comments,
             'articles' => $articles,
+            'title' => $title,
             'hash' => $hash,
             'alias' => $alias,
             'id_alias' => $id_alias,

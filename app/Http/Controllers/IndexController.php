@@ -56,6 +56,9 @@ class IndexController extends SiteController
 
 
     public function index(){
+
+        $this->title = 'Home';
+
         $menu = $this->getMenu();
 
         $slideItems = $this->getSliders();
@@ -71,12 +74,16 @@ class IndexController extends SiteController
         }
         //dd($portfolio->img);
 
+
+
         $this->vars = [
             'menus' => $menu,
             'sliders' => $slideItems,
             'portfolios' => $portfolios,
             'articles' => $articles,
+            'article' => $article,
             'bar' => $this->bar,
+            'title' =>$this->title,
         ];
         //dd($this->vars);
         return $this->renderOutPut();
