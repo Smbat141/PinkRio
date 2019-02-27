@@ -40,3 +40,6 @@ Route::get('/articles/cat/{cat_alias?}',['uses' => 'ArticleController@index','as
 
 
 Route::resource('/comment','CommentController',['only' => 'store']);
+
+Route::get('/contacts',['uses' => 'ContactController@index','as' => 'contacts']);
+Route::post('/contacts',['uses' => 'ContactController@store','as' => 'contacts']);
