@@ -2,9 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Http\Controllers\SiteController;
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-
+use App\Menu;
 class Handler extends ExceptionHandler
 {
     /**
@@ -34,8 +35,7 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return void
      */
-    public function report(Exception $exception)
-    {
+    public function report(Exception $exception){
         parent::report($exception);
     }
 
@@ -46,8 +46,24 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
-    {
+    public function render($request, Exception $exception){
+
+        if($this->isHttpException($exception)){
+            $statusCode = $exception->getStatusCode();
+            $menus = Menu::all();
+            $data = [
+                'title' => 'Page Not Found',
+                'menus' => $menus,
+
+            ];
+
+            switch ($statusCode){
+                case('404'):
+                    return response()->view(env('THEME').'.404',$data);
+            }
+
+        }
+
         return parent::render($request, $exception);
     }
 }

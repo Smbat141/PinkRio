@@ -11,7 +11,7 @@
 |
 */
 
-Auth::routes();
+//Auth::routes();
 
 
 
@@ -43,3 +43,12 @@ Route::resource('/comment','CommentController',['only' => 'store']);
 
 Route::get('/contacts',['uses' => 'ContactController@index','as' => 'contacts']);
 Route::post('/contacts',['uses' => 'ContactController@store','as' => 'contacts']);
+
+/*Route::post('/login',['uses' => '\Auth\LoginController@login'])*/;
+
+Route::namespace('Auth')->group(function () {
+    Route::get('/login',['uses' => 'LoginController@showLoginForm','as' => 'login']);
+    Route::post('/login',['uses' => 'LoginController@login','as' => 'login']);
+    Route::get('/logout',['uses' => 'LoginController@logout','login']);
+
+});

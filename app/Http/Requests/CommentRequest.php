@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Contracts\Validation\Validator;
+use Validator;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CommentRequest extends FormRequest
@@ -30,7 +30,10 @@ class CommentRequest extends FormRequest
             'text' => 'required',
         ];
     }
-
+    protected function formatErrors(Validator $validator)
+    {
+        return \Response::json(['error' => $validator->errors()->all()]);
+    }
     /*protected function failedValidation(Validator $validator)
     {
         return \Response::json(['error' => $validator->errors()->all()]);

@@ -24,7 +24,6 @@ jQuery(document).ready(function ($) {
                                         }
 
                                         if(html.success){
-                                            console.log('done');
                                             $('.wrap_result').append('</br><strong>Saved</strong>')
                                                 .delay(2000)
                                                 .fadeOut(5000,function () {
@@ -37,8 +36,8 @@ jQuery(document).ready(function ($) {
 
                             },
                             error:function () {
-                                $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>');
-                                $('.wrap_result').delay(2000).fadeOut(500);
+                               // $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>');
+                               // $('.wrap_result').delay(2000).fadeOut(500);
 
                             }
                         });
