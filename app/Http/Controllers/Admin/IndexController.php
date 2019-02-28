@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Gate;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class IndexController extends AdminController{
+
     public function __construct(){
         parent::__construct();
 
+      /*  if(Gate::denies('EDIT_ARTICLES')){
+            abort(404);
+        }*/
         $this->template = env('THEME').'.admin.index';
     }
 
