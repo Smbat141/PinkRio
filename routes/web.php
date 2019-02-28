@@ -52,3 +52,11 @@ Route::namespace('Auth')->group(function () {
     Route::get('/logout',['uses' => 'LoginController@logout','login']);
 
 });
+
+
+    Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'auth'],function (){
+        Route::get('/',['uses'=>'IndexController@index','as' => 'adminIndex']);
+        Route::resource('/articles','ArticlesController');
+    });
+
+
