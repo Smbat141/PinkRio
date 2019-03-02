@@ -45,11 +45,11 @@ class AdminController extends Controller
     public function getMenu(){
         $menu = new Menu();
         return $menu->make('adminMenu',function ($menu){
-           $menu->add('Articles',array('route'=>'articles.index'));
-           $menu->add('Portfolio',array('route'=>'articles.index'));
-           $menu->add('Menu',array('route'=>'articles.index'));
-           $menu->add('Users',array('route'=>'articles.index'));
-           $menu->add('Privilege',array('route'=>'articles.index'));
+           $menu->add('Articles',array('route'=>'adminArticles.index'));
+           $menu->add('Portfolio',array('route'=>'adminArticles.index'));
+           $menu->add('Menu',array('route'=>'adminArticles.index'));
+           $menu->add('Users',array('route'=>'adminArticles.index'));
+           $menu->add('Privilege',array('route'=>'adminArticles.index'));
         });
     }
 
