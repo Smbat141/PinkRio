@@ -33,11 +33,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <form method="post" action="{{route('articles.create')}}" class="form-horizontal">
-                    <button type="submit" class="btn btn-green">Add new article</button>
-
-                </form>
-
+                <a href="{{route('articles.create')}}"><button type="submit" class="btn btn-green">Add new article</button></a>
             </div>
         </div>
     </div>

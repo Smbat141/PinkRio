@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Article;
+use App\Category;
+use App\Http\Requests\ArticleRequest;
 use App\Repositories\ArticlesRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class ArticlesController extends AdminController
 {
@@ -47,9 +51,22 @@ class ArticlesController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        if(Facades\Gate::denies('save',new Article)){
+            abort(404);
+        }
+
+        $this->title = 'Add new Artticles';
+
+        $category = Category::select('*')->get();
+
+
+        $this->content = view(env('THEME').'.admin.articles_create_content')->with('categories',$category)->render();
+
+        $this->vars = array_add($this->vars,'content',$this->content);
+
+        return $this->renderOutput();
     }
 
     /**
@@ -58,9 +75,14 @@ class ArticlesController extends AdminController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(ArticleRequest  $request){
+        $result = $this->a_rep->addArticle($request);
+        if(is_array($result) && !empty($result['error'])){
+            return back()->with($result);
+        }
+
+        return redirect('/admin')->with($result);
+
     }
 
     /**

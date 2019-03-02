@@ -62,6 +62,7 @@
     <link rel='stylesheet' href='{{asset(env('THEME'))}}/css/font-awesome.css' type='text/css' media='all' />
 
     <!-- JAVASCRIPTs -->
+
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/comment-reply.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.quicksand.js"></script>
@@ -78,6 +79,7 @@
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.colorbox-min.js"></script> <!-- nav -->
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.tweetable.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/myscripts.js"></script>
+
 </head>
 <!-- END HEAD -->
 
@@ -112,8 +114,8 @@
                 <hr />
 
                 <!-- START MAIN NAVIGATION -->
-            @yield('navigation')
-            <!-- END MAIN NAVIGATION -->
+                @yield('navigation')
+                <!-- END MAIN NAVIGATION -->
                 <div id="header-shadow"></div>
                 <div id="menu-shadow"></div>
             </div>
@@ -125,6 +127,7 @@
 
         <div id="primary" class="sidebar-{{isset($bar) ? $bar : 'no'}}">
             <div class="inner group">
+
                 <!-- START CONTENT -->
             @yield('content')
             <!-- END CONTENT -->
@@ -150,6 +153,7 @@
 <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.custom.js"></script>
 <script type="text/javascript" src="{{asset(env('THEME'))}}/js/contact.js"></script>
 <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.mobilemenu.js"></script>
+<script type="text/javascript" src="{{asset(env('THEME'))}}/js/bootstrap-filestyle.min.js"></script>
 
 </body>
 <!-- END BODY -->

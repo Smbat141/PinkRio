@@ -38,7 +38,6 @@ class ArticleController extends SiteController
         $portfolios = $this->getPortfolios();
 
         $articles  = $this->getArticles($cat_alias);
-
         $comments = $this->getComments();
 
 
@@ -81,8 +80,7 @@ class ArticleController extends SiteController
 
         $id_alias = Article::where('alias',$alias)->first()->id;
 
-        $articles  = $this->getArticles();
-
+        $articles  = $this->getArticles($alias);
         $hash = false;
 
         $menu = $this->getMenu();
@@ -94,10 +92,10 @@ class ArticleController extends SiteController
         foreach ($articles as $article){
             $article->img = json_decode($article->img);
         }
-
         foreach ($portfolios as $portfolio){
             $portfolio->img = json_decode($portfolio->img);
         }
+
 
         foreach ($comments as $comment){
 
@@ -147,8 +145,8 @@ class ArticleController extends SiteController
         $where = false;
 
         if($alias){
-            $id = Category::select('id')->where('alias',$alias)->first()->id;
-            $where = ['category_id',$id];
+            $alias = Article::select('alias')->where('alias',$alias)->first()->alias;
+            $where = ['alias',$alias];
         }
 
         $articles = $this->a_rep->get('*',true,$where);
@@ -156,6 +154,7 @@ class ArticleController extends SiteController
         if($articles){
             $articles->load('user','category','comment');
         }
+
         return $articles;
 
     }

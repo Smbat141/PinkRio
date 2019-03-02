@@ -56,7 +56,7 @@ Route::namespace('Auth')->group(function () {
 
     Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'auth'],function (){
         Route::get('/',['uses'=>'IndexController@index','as' => 'adminIndex']);
-        Route::resource('/articles','ArticlesController');
+        Route::resource('/adminArticles','ArticlesController');
     });
 
 

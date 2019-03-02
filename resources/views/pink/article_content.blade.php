@@ -1,8 +1,9 @@
-
 <div id="content-single" class="content group">
     <div class="hentry hentry-post blog-big group ">
         @foreach($articles as $article)
             @if($article->alias == $alias)
+
+
                 <div class="thumbnail">
                     <!-- post title -->
                     <h1 class="post-title"><a href="article.html">{{$article->title}}</a></h1>
