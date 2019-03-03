@@ -11,9 +11,9 @@
 |
 */
 
-/*Auth::routes();
+//Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');*/
+
 
 
 Route::resource('/','IndexController',[
@@ -22,3 +22,41 @@ Route::resource('/','IndexController',[
                                             'index' => 'home'
                                         ]
                                       ]);
+
+Route::resource('/portfolios','PortfolioController',[
+                                                        'parameters' => [
+                                                            'portfolios' => 'alias',
+                                                        ]
+                                                    ]);
+
+Route::resource('/articles','ArticleController',[
+                                                    'parameters' => [
+                                                        'articles' => 'alias',
+                                                    ]
+                                                ]);
+
+
+Route::get('/articles/cat/{cat_alias?}',['uses' => 'ArticleController@index','as' => 'articlesCat']);
+
+
+Route::resource('/comment','CommentController',['only' => 'store']);
+
+Route::get('/contacts',['uses' => 'ContactController@index','as' => 'contacts']);
+Route::post('/contacts',['uses' => 'ContactController@store','as' => 'contacts']);
+
+/*Route::post('/login',['uses' => '\Auth\LoginController@login'])*/;
+
+Route::namespace('Auth')->group(function () {
+    Route::get('/login',['uses' => 'LoginController@showLoginForm','as' => 'login']);
+    Route::post('/login',['uses' => 'LoginController@login','as' => 'login']);
+    Route::get('/logout',['uses' => 'LoginController@logout','login']);
+
+});
+
+
+    Route::group(['namespace' => 'Admin','prefix' => 'admin','middleware' => 'auth'],function (){
+        Route::get('/',['uses'=>'IndexController@index','as' => 'adminIndex']);
+        Route::resource('/adminArticles','ArticlesController');
+    });
+
+

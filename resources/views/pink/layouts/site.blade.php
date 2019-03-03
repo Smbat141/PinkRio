@@ -24,8 +24,9 @@
     <meta charset="UTF-8" />
     <!-- this line will appear only if the website is visited with an iPad -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.2, user-scalable=yes" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Pink Rio | A strong, powerful and multiporpose WordPress Theme</title>
+    <title>{{$title}}</title>
 
     <!-- [favicon] begin -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset(env('THEME'))}}/images/favicon.ico" />
@@ -76,12 +77,12 @@
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/shortcodes.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.colorbox-min.js"></script> <!-- nav -->
     <script type="text/javascript" src="{{asset(env('THEME'))}}/js/jquery.tweetable.js"></script>
-
+    <script type="text/javascript" src="{{asset(env('THEME'))}}/js/myscripts.js"></script>
 </head>
 <!-- END HEAD -->
 
 <!-- START BODY -->
-<body class="no_js responsive page-template-home-php stretched">
+<body class="no_js responsive {{ (Route::currentRouteName() == 'home') || (Route::currentRouteName() == 'portfolios.index') || (Route::currentRouteName() == 'portfolios.show') ? 'page-template-home-php' : ''}} stretched">
 
 <!-- START BG SHADOW -->
 <div class="bg-shadow">
@@ -96,7 +97,7 @@
 
                 <!-- START LOGO -->
                 <div id="logo" class="group">
-                    <a href="index.html" title="Pink Rio"><img src="images/logo.png" title="Pink Rio" alt="Pink Rio" /></a>
+                    <a href="http://127.0.0.1:8000/" title="Pink Rio"><img src="{{asset(env('THEME'))}}/images/logo.png" title="Pink Rio" alt="Pink Rio" /></a>
                 </div>
                 <!-- END LOGO -->
 
@@ -122,145 +123,33 @@
 
         <!-- START SLIDER -->
             @yield('slider')
-
+        <div class="wrap_result"></div>
         <!-- START PRIMARY -->
-        <div id="primary" class="sidebar-right">
+        @if(Route::currentRouteName() == 'portfolios.index')
+        <!-- START PAGE META -->
+        <div id="page-meta">
+            <div class="inner group">
+                <h3>Welcome to my portfolio page</h3>
+                <h4>... i hope you enjoy my works</h4>
+            </div>
+        </div>
+        @endif
+        @if(Route::currentRouteName() == 'contacts')
+        <div id="page-meta">
+            <div class="inner group">
+                <h3>...Say Hello! :)</h3>
+                <h4>Get in touch with Pink Rio team</h4>
+            </div>
+        </div>
+        <!-- END PAGE META -->
+        @endif
+        <div id="primary" class="sidebar-{{isset($bar) ? $bar : 'no'}}">
             <div class="inner group">
                 <!-- START CONTENT -->
-                <div id="content-home" class="content group">
-                    <div class="hentry group">
-                        <div class="section portfolio">
-
-                            <h3 class="title">Latest projects</h3>
-
-                            <div class="hentry work group portfolio-sticky portfolio-full-description">
-                                <div class="work-thumbnail">
-                                    <a class="thumb"><img src="images/projects/0081-385x192.jpg" alt="0081" title="0081" /></a>
-                                    <div class="work-overlay">
-                                        <h3><a href="project.html">Steep This!</a></h3>
-                                        <p class="work-overlay-categories"><img src="images/categories.png" alt="Categories" /> in: <a href="category.html">Brand Identity</a>, <a href="category.html">Web Design</a></p>
-                                    </div>
-                                </div>
-                                <div class="work-description">
-                                    <h2><a href="project.html">Steep This!</a></h2>
-                                    <p class="work-categories">in: <a href="category.html">Brand Identity</a>, <a href="category.html">Web Design</a></p>
-                                    <p>Nullam volutpat, mauris scelerisque iaculis semper, justo odio rutrum urna, at cursus urna nisl et ipsum. Donec dapibus lacus nec sapien faucibus eget suscipit lorem mattis.</p>
-                                    <p>Donec non mauris ac nulla consectetur pretium sit amet rhoncus [...]
-                                        <a href="project.html" class="read-more">|| Read more</a>
-                                </div>
-                            </div>
-
-                            <div class="clear"></div>
-
-                            <div class="portfolio-projects">
-
-                                <div class="related_project">
-                                    <div class="overlay_a related_img">
-                                        <div class="overlay_wrapper">
-                                            <img src="images/projects/0061-175x175.jpg" alt="0061" title="0061" />
-                                            <div class="overlay">
-                                                <a class="overlay_img" href="images/projects/0061.jpg" rel="lightbox" title=""></a>
-                                                <a class="overlay_project" href="project.html"></a>
-                                                <span class="overlay_title">Love</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4><a href="project.html">Love</a></h4>
-                                    <p>Nullam volutpat, mauris scelerisque iaculis semper, justo odio rutrum urna, [...]
-                                </div>
-
-                                <div class="related_project">
-                                    <div class="overlay_a related_img">
-                                        <div class="overlay_wrapper">
-                                            <img src="images/projects/0071-175x175.jpg" alt="0071" title="0071" />
-                                            <div class="overlay">
-                                                <a class="overlay_img" href="images/projects/0071.jpg" rel="lightbox" title=""></a>
-                                                <a class="overlay_project" href="project.html"></a>
-                                                <span class="overlay_title">Kineda</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4><a href="project.html">Kineda</a></h4>
-                                    <p>Nullam volutpat, mauris scelerisque iaculis semper, justo odio rutrum urna, [...]
-                                </div>
-
-                                <div class="related_project">
-                                    <div class="overlay_a related_img">
-                                        <div class="overlay_wrapper">
-                                            <img src="images/projects/009-175x175.jpg" alt="009" title="009" />
-                                            <div class="overlay">
-                                                <a class="overlay_img" href="images/projects/009.jpg" rel="lightbox" title=""></a>
-                                                <a class="overlay_project" href="project.html"></a>
-                                                <span class="overlay_title">Guanacos</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4><a href="project.html">Guanacos</a></h4>
-                                    <p>Nullam volutpat, mauris scelerisque iaculis semper, justo odio rutrum urna, [...]
-                                </div>
-
-                                <div class="related_project_last related_project">
-                                    <div class="overlay_a related_img">
-                                        <div class="overlay_wrapper">
-                                            <img src="images/projects/0011-175x175.jpg" alt="0011" title="0011" />
-                                            <div class="overlay">
-                                                <a class="overlay_img" href="images/projects/0011.jpg" rel="lightbox" title=""></a>
-                                                <a class="overlay_project" href="project.html"></a>
-                                                <span class="overlay_title">Miller Bob</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h4><a href="project.html">Miller Bob</a></h4>
-                                    <p>Nullam volutpat, mauris scelerisque iaculis semper, justo odio rutrum urna, [...]
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                    <!-- START COMMENTS -->
-                    <div id="comments">
-                    </div>
-                    <!-- END COMMENTS -->
-                </div>
+                @yield('content')
                 <!-- END CONTENT -->
                 <!-- START SIDEBAR -->
-                <div class="sidebar group">
-
-                    <div class="widget-first widget recent-posts">
-                        <h3>From our blog</h3>
-                        <div class="recent-post group">
-                            <div class="hentry-post group">
-                                <div class="thumb-img"><img src="images/articles/001-55x55.png" alt="001" title="001" /></div>
-                                <div class="text">
-                                    <a href="article.html" title="Section shortcodes &amp; sticky posts!" class="title">Section shortcodes &amp; sticky posts!</a>
-                                    <p class="post-date">September 24, 2012</p>
-                                </div>
-                            </div>
-                            <div class="hentry-post group">
-                                <div class="thumb-img"><img src="images/articles/003-55x55.jpg" alt="003" title="003" /></div>
-                                <div class="text">
-                                    <a href="article.html" title="Nice &amp; Clean. The best for your blog!" class="title">Nice &amp; Clean. The best for your blog!</a>
-                                    <p class="post-date">September 24, 2012</p>
-                                </div>
-                            </div>
-                            <div class="hentry-post group">
-                                <div class="thumb-img"><img src="images/articles/0037-55x55.jpg" alt="0037" title="0037" /></div>
-                                <div class="text">
-                                    <a href="article.html" title="Another theme by YIThemes!" class="title">Another theme by YIThemes!</a>
-                                    <p class="post-date">September 24, 2012</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="widget-last widget text-image">
-                        <h3>Customer support</h3>
-                        <div class="text-image" style="text-align:left"><img src="images/callus.gif" alt="Customer support" /></div>
-                        <p>Proin porttitor dolor eu nibh lacinia at ultrices lorem venenatis. Sed volutpat scelerisque vulputate. </p>
-                    </div>
-
-                </div>
+               @yield('bar')
                 <!-- END SIDEBAR -->
                 <!-- START EXTRA CONTENT -->
                 <!-- END EXTRA CONTENT -->
@@ -269,21 +158,8 @@
         <!-- END PRIMARY -->
 
         <!-- START COPYRIGHT -->
-        <div id="copyright">
-            <div class="inner group">
-                <div class="left">
-                    <a href="http://yithemes.com/?ddownload=2046&ap_id=pinkrio-html"><strong>Download the free version for Wordpress</strong></a>
-                </div>
-                <div class="right">
-                    <a href="#" class="socials-small facebook-small" title="Facebook">facebook</a>
-                    <a href="#" class="socials-small rss-small" title="Rss">rss</a>
-                    <a href="#" class="socials-small twitter-small" title="Twitter">twitter</a>
-                    <a href="#" class="socials-small flickr-small" title="Flickr">flickr</a>
-                    <a href="#" class="socials-small skype-small" title="Skype">skype</a>
-                    <a href="#" class="socials-small google-small" title="Google">google</a>
-                    <a href="#" class="socials-small pinterest-small" title="Pinterest">pinterest</a>
-                </div>
-            </div>
+        <div class="sidebar group">
+         @yield('footer')
         </div>
         <!-- END COPYRIGHT -->
     </div>
