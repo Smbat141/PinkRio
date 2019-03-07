@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Article;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -26,4 +27,14 @@ class ArticlePolicy
         }
         return true;
     }
+
+
+    public function destroy(User $user,Article $article){
+        if($user->id == $article->user_id){
+            return false;
+        }
+        return true;
+    }
+
+
 }

@@ -102,9 +102,24 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($alias)
     {
-        //
+        if(Facades\Gate::denies('save',new Article)){
+            abort(404);
+        }
+
+        $this->title = 'Edit Artticles';
+
+        $article = Article::where('alias',$alias)->first();
+        $category = Category::select('*')->get();
+        $article->img = json_decode($article->img);
+
+
+        $this->content = view(env('THEME').'.admin.articles_create_content')->with(['categories' => $category,'article' => $article])->render();
+
+        $this->vars = array_add($this->vars,'content',$this->content);
+
+        return $this->renderOutput();
     }
 
     /**
@@ -114,10 +129,18 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(ArticleRequest $request, $alias){
+        $article = Article::where('alias',$alias)->first();
+        $result = $this->a_rep->updateArticle($request,$article);
+        if(is_array($result) && !empty($result['error'])){
+            return back()->with($result);
+        }
+
+        return redirect('/admin')->with($result);
+
     }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -125,8 +148,18 @@ class ArticlesController extends AdminController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($alias){
+
+        if(Facades\Gate::denies('destroy',new Article)){
+            abort(404);
+        }
+        $article = Article::where('alias',$alias)->first();
+        $result = $this->a_rep->destroyArticle($article);
+        if(is_array($result) && !empty($result['error'])){
+            return back()->with($result);
+        }
+
+        return redirect('/admin')->with($result);
+
     }
 }

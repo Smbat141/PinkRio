@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Http\Requests\CommentRequest;
-use http\Env\Response;
+use Validator;;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class CommentController extends SiteController
 {
@@ -41,6 +42,16 @@ class CommentController extends SiteController
 
 
         $data = $request->except('_token');
+
+
+      /*  $validator = Validator::make($data,[
+            'text' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return \Response::json(['error' => $validator->errors()->all()]);
+        }*/
+
 
         $user = Auth::user();
 

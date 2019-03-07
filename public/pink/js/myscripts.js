@@ -9,7 +9,6 @@ jQuery(document).ready(function ($) {
                     text('Comment Save').
                     fadeIn(500,function () {
                         var data = $('#commentform').serializeArray();
-
                         $.ajax({
                             url:$('#commentform').attr('action'),
                             data:data,
@@ -17,9 +16,11 @@ jQuery(document).ready(function ($) {
                             type:'POST',
                             dataType:'JSON',
                             success:function (html) {
+                                console.log(html.error);
+                                console.log(html.success);
 
                                         if(html.error){
-                                            $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>'+html.error.join('<br>'));
+                                            $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong></br>'+html.error.join('<br>'));
                                             $('.wrap_result').delay(2000).fadeOut(500);
                                         }
 
@@ -36,8 +37,8 @@ jQuery(document).ready(function ($) {
 
                             },
                             error:function () {
-                               // $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>');
-                               // $('.wrap_result').delay(2000).fadeOut(500);
+                                $('.wrap_result').css('color','red').append('</br><strong>Savved error</strong>');
+                                $('.wrap_result').delay(1000).fadeOut(100);
 
                             }
                         });

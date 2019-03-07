@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Requests;
-
-use Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
+
 
 class CommentRequest extends FormRequest
 {
@@ -19,6 +20,24 @@ class CommentRequest extends FormRequest
         return true;
     }
 
+    /*protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($response));
+    }*/
+
+    protected function getValidatorInstance()
+    {
+        $validator =  parent::getValidatorInstance();
+
+       if($validator->fails()){
+            throw new HttpResponseException(response()->json((['error' => $validator->errors()->all()])));
+       }
+
+        return $validator;
+    }
+
+   
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -30,13 +49,17 @@ class CommentRequest extends FormRequest
             'text' => 'required',
         ];
     }
-    protected function formatErrors(Validator $validator)
-    {
-        return \Response::json(['error' => $validator->errors()->all()]);
+
+    public function messages(){
+        return [
+        ];
     }
-    /*protected function failedValidation(Validator $validator)
-    {
-        return \Response::json(['error' => $validator->errors()->all()]);
-    }*/
+
+
+    /*
+    if ($validator->fails()) {
+     return \Response::json(['error' => $validator->errors()->all()]);
+    }
+    */
 
 }

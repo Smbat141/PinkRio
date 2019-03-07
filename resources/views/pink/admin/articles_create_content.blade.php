@@ -13,7 +13,7 @@
 @endif
 <div id="content-page" class="content group">
     <div class="hentry group">
-        <form action="{{isset($article->id) ? route('articles.update',$article->alias) : route('articles.store')}}" id="contact-form-contact-us" class="contact-form" method="post" enctype="multipart/form-data">
+        <form action="{{isset($article->id) ? route('adminArticles.update',$article->alias) : route('articles.store')}}" id="contact-form-contact-us" class="contact-form" method="post" enctype="multipart/form-data">
             {{ csrf_field() }}
             <div class="usermessagea"></div>
             <fieldset>
@@ -107,6 +107,7 @@
                     </li>
                     @if(isset($article->id))
                         <input type="hidden" name="_method" value="PUT">
+                        <input type="hidden" name="id" value="{{$article->id}}">
                     @endif
                     <li class="submit-button">
                         <button type="submit" class="btn btn-green">Save</button>
